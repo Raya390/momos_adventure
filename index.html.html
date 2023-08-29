@@ -1,0 +1,77 @@
+<head>
+<title>Momo's Adventure! </title>
+    <style>
+    /*body { background: linear-gradient(135deg, #fcfffe 25%, transparent 25%) -50px 0, linear-gradient(225deg, #fcfffe 25%, transparent 25%) -50px 0, linear-gradient(315deg, black 25%, transparent 25%), linear-gradient(45deg, black 25%, transparent 25%); background-size: 100px 100px; background-color: #fcfffe; } 
+        */
+        
+body {
+  background-image: url('momo_title_screen.jpg');
+    background-size: 100%  100%;
+    
+}
+        
+
+h1 {
+  
+    animation-name: example;
+  animation-duration: 4s;
+    animation-iteration-count:infinite;
+}
+        
+        @keyframes example {
+  0%   {color:red;}
+  25%  {color:yellow;}
+  50%  {color:blue;}
+  75%  {color:green;}
+  100% {color:red;}
+}
+
+.momo_icon_overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px; /* Adjust the width to match your desired cloth size */
+    height: 200px; /* Adjust the height to match your desired cloth size */
+    background-image: url('graphics/momo_face_play.png'); /* Replace 'cloth-image.png' with your own image */
+    background-size: cover;
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5); /* Adjust the shadow properties as needed */
+    z-index: 9999; /* Ensure the overlay is above other elements */
+  }
+
+  .momo_icon_overlay_music {
+    position: absolute;
+    top: 225px;
+    right: 0;
+    width: 200px; /* Adjust the width to match your desired cloth size */
+    height: 200px; /* Adjust the height to match your desired cloth size */
+    background-image: url('graphics/momo_face_music.png'); /* Replace 'cloth-image.png' with your own image */
+    background-size: cover;
+    background-color: rgb(140, 0, 255);
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5); /* Adjust the shadow properties as needed */
+    z-index: 9999; /* Ensure the overlay is above other elements */
+  }
+  
+
+    </style>
+    
+    <script>
+         function goto(page_url){
+       location.href = page_url
+         }
+    </script>
+</head>
+<body >
+    <audio autoplay loop>
+  <source src="sound/Momo title.m4a" type="audio/mp3">
+</audio>
+    
+    <div>
+        <h1>Welcome to Momo's Adventure!
+            <br>Made by Vienna, Phillip, and Milan Gilmore!</h1>
+    </div>
+    
+    <div class="momo_icon_overlay_music" onclick="goto('music_homepage.html');"></div>
+    <div class="momo_icon_overlay" onclick="goto('super_momo.html');"></div>
+        
+        </body>
