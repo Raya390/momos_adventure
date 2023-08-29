@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momo's Adventure!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+            body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        position: relative; /* to allow positioning of children relative to the body */
+    }
+
+    #textSpace {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        padding: 20px;
+        position: absolute; /* take it out of normal flow and position it */
+        top: 10px; /* position from the top */
+        left: 20px; /* position from the left */
+        border-radius: 15px; /* rounded corners */
+        border: 2px solid black;
+        width: 500px; /* set a specific width */
+        max-width: 500px; /* ensure it doesn't exceed this width */
+        max-height: 60vh; /* set a max height */
+        /*overflow: auto; /* allow scrolling if there's too much content */
+    }
+    #textSpace:after {
+        content: '';
+        position: absolute;
+        bottom: -15px; /* adjust as needed */
+        left: 30px; /* position the tip towards the left */
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 15px solid white; /* same color as the bubble */
+        border-bottom: none;
+    }
+        #scene {
+            flex-grow: 1;
+            background: url('graphics/final_scene_2_tears.png') no-repeat center center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="textSpace"></div>
+    <div id="scene"></div>
+
+    <script>
+        const textSpace = document.getElementById('textSpace');
+        const message = [
+            "I only wish that my daughter",
+            "Momo could be with us today",
+            "*snivel* (click)"
+        ];
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        function revealText() {
+            if (lineIndex < message.length) {
+                if (charIndex < message[lineIndex].length) {
+                    textSpace.innerHTML += message[lineIndex][charIndex];
+                    charIndex++;
+                } else {
+                    textSpace.innerHTML += "<br>";
+                    lineIndex++;
+                    charIndex = 0;
+                }
+                setTimeout(revealText, 100);
+            }
+        }
+
+        revealText();
+        document.body.addEventListener('click', function() {
+            window.location.href = 'super_momo_final_cutscene_3_dry.html';
+        });
+    </script>
+
+
+</body>
+</html>

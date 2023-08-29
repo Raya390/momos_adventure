@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momo's Adventure!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+            body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        position: relative; /* to allow positioning of children relative to the body */
+    }
+
+    
+        #scene {
+            flex-grow: 1;
+            background: url('graphics/final_cutscene_6_end.png') no-repeat center center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="scene"></div>
+
+    <script>
+  
+        setTimeout(function() {
+                window.location.href = 'momo_start_title.html';
+            }, 500000);  // 5000 milliseconds (5 seconds)
+
+        document.body.addEventListener('click', function() {
+            window.location.href = 'momo_start_title.html';
+        });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Momo's Adventure Soundtrack</title>
+<link rel="stylesheet" href="music_homepage_style.css">
+</head>
+<body>
+<h1>Momo's Adventure Soundtrack</h1>
+<canvas id="visualizer" width="200px" height="50px"></canvas>
+<div class="momo_icon_overlay" onclick="goto('momo_start_title.html');"></div>
+<div class="tracks">
+<ul>
+    <li><a href="#" onclick="playTrack('sound/Momo title.m4a')">Momo Title</a></li>
+    <li><a href="#" onclick="playTrack('sound/Momosadventuresoundtrack - 5_1_21, 4.13 PM.mp3')">Level 1 - Intro</a></li>
+    <li><a href="#" onclick="playTrack('sound/volcanolvl_music.mp3')">Volcano Level</a></li>
+    <li><a href="#" onclick="playTrack('sound/Ice world.m4a')">Ice World</a></li>
+    <li><a href="#" onclick="playTrack('sound/moonlevel_music.mp3')">Moon Base</a></li>
+    <li><a href="#" onclick="playTrack('sound/rubycave_music.mp3')">Ruby Cave</a></li>
+    <li><a href="#" onclick="playTrack('sound/sunlevel_music.mp3')">Sun</a></li>
+    <li><a href="#" onclick="playTrack('sound/cloudmusic.mp3')">Cloud</a></li>
+    <li><a href="#" onclick="playTrack('sound/lavaboss_music.mp3')">Lava Cave</a></li>
+    <li><a href="#" onclick="playTrack('sound/underwaterlvl_music.mp3')">Underwater Cave</a></li>
+    <li><a href="#" onclick="playTrack('sound/sealevelmusic.mp3')">Under the Sea</a></li>
+    <li><a href="#" onclick="playTrack('sound/beachlvl_music.mp3')">Beach</a></li>
+    <li><a href="#" onclick="playTrack('sound/momosadventures_nightjunglemusic - 1_14_23, 7.43 PM.mp3')">Night Jungle</a></li>
+    <li><a href="#" onclick="playTrack('sound/homelevel_music.mp3')">Momo's Home</a></li>
+
+
+</ul>
+
+
+<h1>Sound FX</h1>
+<ul>
+
+    <li><a href="#" onclick="playTrack('sound/trotting.m4a')">Trot</a></li>
+    <li><a href="#" onclick="playTrack('sound/swim_fx.m4a')">Swim</a></li>
+    <li><a href="#" onclick="playTrack('sound/Win1.m4a')">You Win</a></li>
+    <li><a href="#" onclick="playTrack('sound/lose_fx.m4a')">You Lose</a></li>
+    <li><a href="#" onclick="stopTrack()">Silence</a></li>
+</ul>
+</div>
+
+</body>
+<script>
+    function goto(page_url){
+       location.href = page_url
+    };
+    var currentAudio;
+    var visualizer = document.getElementById('visualizer');
+    var ctx = visualizer.getContext('2d');
+    var WIDTH = visualizer.width;
+    var HEIGHT = visualizer.height;
+    
+    function playTrack(trackUrl) {
+      if (currentAudio) {
+        currentAudio.pause();
+      }
+    
+      currentAudio = new Audio(trackUrl);
+      currentAudio.play();
+    
+      currentAudio.addEventListener('ended', function() {
+        currentAudio.pause();
+      });
+    
+      if (visualizer) {
+        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var source = audioContext.createMediaElementSource(currentAudio);
+        var analyser = audioContext.createAnalyser();
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+    
+        analyser.fftSize = 256;
+        var bufferLength = analyser.frequencyBinCount;
+        var dataArray = new Uint8Array(bufferLength);
+    
+        var barWidth = (WIDTH / bufferLength) * 2.5;
+        var maxBarHeight = HEIGHT - 10; // Maximum height of the bars (adjusted to leave some space at the top)
+        var x = 0;
+    
+        function renderFrame() {
+          requestAnimationFrame(renderFrame);
+    
+          x = 0;
+    
+          analyser.getByteFrequencyData(dataArray);
+    
+          ctx.fillStyle = '#000';
+          ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    
+          for (var i = 0; i < bufferLength; i++) {
+            var barHeight = (dataArray[i] / 255) * maxBarHeight;
+    
+            var blue = Math.round((barHeight / maxBarHeight) * 255)-155;
+            var green = Math.round((barHeight / maxBarHeight) * 200) + 55;
+            var color = 'rgb(0, ' + green + ', ' + blue + ')';
+    
+            ctx.fillStyle = color;
+            ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+    
+            x += barWidth + 1;
+          }
+        }
+    
+        renderFrame();
+      }
+    }
+    
+    function stopTrack() {
+      if (currentAudio) {
+        currentAudio.pause();
+      }
+    }
+    </script>
+</html>
